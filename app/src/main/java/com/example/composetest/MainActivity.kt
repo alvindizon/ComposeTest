@@ -4,8 +4,11 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
@@ -28,9 +31,9 @@ class MainActivity : ComponentActivity() {
             ComposeTestTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
-                    Column(
+                    Row(
                         modifier = Modifier.height(500.dp).width(500.dp).background(Color.LightGray),
-                        horizontalAlignment = Alignment.CenterHorizontally
+                        horizontalArrangement = Arrangement.Start
                     ) {
                         CustomItem(weight = 3f, color = MaterialTheme.colors.secondary)
                         CustomItem(weight = 1f)
@@ -62,6 +65,17 @@ fun ColumnScope.CustomItem(weight: Float, color: Color = MaterialTheme.colors.pr
     ) {}
 }
 
+@Composable
+fun RowScope.CustomItem(weight: Float, color: Color = MaterialTheme.colors.primary) {
+    Surface(
+        modifier = Modifier
+            .width(50.dp)
+            .height(50.dp)
+            .weight(weight),
+        color = color
+    ) {}
+}
+
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
@@ -69,6 +83,14 @@ fun DefaultPreview() {
         Column(
             modifier = Modifier.height(500.dp),
             horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            CustomItem(weight = 1f, color = MaterialTheme.colors.background)
+            CustomItem(weight = 3f, color = MaterialTheme.colors.secondary)
+            CustomItem(weight = 1f)
+        }
+        Row(
+            modifier = Modifier.fillMaxSize(),
+            horizontalArrangement = Arrangement.Start
         ) {
             CustomItem(weight = 3f, color = MaterialTheme.colors.secondary)
             CustomItem(weight = 1f)
